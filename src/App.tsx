@@ -1,11 +1,16 @@
 import { useState } from "react";
-import MainMenu from "./scenes/MainMenu";
+import { SceneName } from "./type";
+import { useSceneMemo } from "./scenes";
 
 export default function App() {
+  /* Scene Handling */
+  const [scene, setScene] = useState<SceneName>("Main Menu")
+  const Scene = useSceneMemo(scene)
+
   return (
     <div className="h-screen w-screen flex justify-center align items-center">
-      <div className="h-[600px] w-[800px] viewport">
-        <MainMenu />
+      <div className="w-[800px] h-[600px] viewport">
+        <Scene setScene={setScene} />
       </div>
     </div>
   );
