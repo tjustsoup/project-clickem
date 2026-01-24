@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+@theme {
+  --font-joti: JotiOne, system-ui, sans-serif;
+  --font-exo: Exo, system-ui, sans-serif;
+  --font-pixelify: PixelifySans, system-ui, sans-serif;
+  --font-jacquard: Jacquard, system-ui, sans-serif;
+}
+
+@font-face {
+  font-family: JotiOne;
+  src: url("/fonts/JotiOne-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Exo;
+  src: url("/fonts/Exo-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Exo;
+  src: url("/fonts/Exo-MediumItalic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: PixelifySans;
+  src: url("/fonts/PixelifySans-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: PixelifySans;
+  src: url("/fonts/PixelifySans-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Jacquard;
+  src: url("/fonts/Jacquard12-Regular.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+:root {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+
+  color: #f6f6f6;
+  background-color: #202020;
+
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  cursor: url("/cursors/Basic_Cursor.png"), auto;
+}
+
+.viewport {
+  background-color: #303030;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
