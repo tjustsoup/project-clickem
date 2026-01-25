@@ -3,6 +3,7 @@ export type UnitData = {
   resources: UnitResources;
   attributes: UnitAttributes;
   types: UnitTypes;
+  art: string;
 }
 
 export type UnitResources = {
@@ -35,7 +36,8 @@ export const units: Record<string, UnitData> = {
     types: {
       race: "Undead",
       class: "Warrior"
-    }
+    },
+    art: "Skeleton.png",
   },
   "0002": {
     name: "Skeleton Magus",
@@ -46,7 +48,8 @@ export const units: Record<string, UnitData> = {
     types: {
       race: "Undead",
       class: "Wizard"
-    }
+    },
+    art: "SkeletonWizard.png",
   },
   "0003": {
     name: "Goblin Thief",
@@ -57,7 +60,8 @@ export const units: Record<string, UnitData> = {
     types: {
       race: "Goblin",
       class: "Rogue"
-    }
+    },
+    art: "GoblinThief.png",
   },
   "0004": {
     name: "Goblin Berserker",
@@ -68,6 +72,7 @@ export const units: Record<string, UnitData> = {
     types: {
       race: "Goblin",
       class: "Warrior"
-    }
+    },
+    art: "Goblin.png",
   },
 }
