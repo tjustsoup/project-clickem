@@ -22,7 +22,7 @@ export function HotbarButton({
   return (
     <div
       className="w-[90px] h-[90px] border-2 border-slate-300 bg-slate-600"
-      onClick={fn}
+      onClick={() => fn()}
     >
       {name}
     </div>
