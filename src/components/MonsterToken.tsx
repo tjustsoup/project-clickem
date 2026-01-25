@@ -18,13 +18,13 @@ export default function MonsterToken({
       style={{
         height: display.height ?? 200,
         width: display.width ?? 200,
-        padding: "0.5em",
+        padding: "1em",
         backgroundColor: !alive ? "hsl(0 0% 50%)" : (display.bg ?? "hsl(0 100% 33%)"),
         borderRadius: "25%",
         border: "4px solid hsl(0 100% 67%)"
       }}
     >
-      <div className="text-emerald-600 absolute font-pixelify text-2xl bg-emerald-100 rounded-full p-1 border-2 border-emerald-600">
+      <div className="text-emerald-600 absolute font-pixelify text-xl bg-emerald-100 rounded-full p-0.5 border-2 border-emerald-600">
         {!alive ? "dead" : (health ?? 0)}
       </div>
       <img
