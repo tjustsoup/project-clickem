@@ -11,6 +11,7 @@ export type ResourceComponents = ResourceMap<UnitResources>
 
 export type ECS_Store = {
   units: Record<string, string>; // key = refId, value = unitId
+  alive: Record<string, boolean>;
   spawnUnit: (unitId: string) => void;
   updateUnitResource: (refId: string, resource: keyof ResourceComponents, value: any) => void;
 }
@@ -18,7 +19,7 @@ export type ECS_Store = {
 
 export const useECS = create<ECS_Store>((set, get) => ({
   units: {},
-
+  alive: {},
   spawnUnit(unitId) {
     // Get the unit data from "units" given a unitId
     const u = units[unitId]
@@ -30,7 +31,8 @@ export const useECS = create<ECS_Store>((set, get) => ({
       // Add new unit to "units" (entities)
       const res = {
         ...s,
-        units: { ...s.units, [id]: unitId }
+        units: { ...s.units, [id]: unitId },
+        alive: { ...s.alive, [id]: true }
       }
 
       // Instantiate the "resources" (components)
@@ -53,6 +55,21 @@ export const useECS = create<ECS_Store>((set, get) => ({
     if (!(resource in state) || state[resource] === undefined) throw Error(`Resource with name "${resource}" could not be found in the current state`);
     if (!(refId in state[resource])) throw Error(`Unit with refId "${refId}" could not be found on the resource "${resource}"`);
 
-    set(s => ({ [resource]: { ...s[resource], [refId]: value } }))
+    if (resource === "health" && value <= 0) {
+      // Handle "death" event
+      set(s => {
+        let res = { ...s }
+        delete res?.[resource]?.[refId]
+        return { ...res, alive: { ...res.alive, [refId]: false } }
+      })
+    } else {
+      // Update resource
+      set(s => ({
+        [resource]: {
+          ...s[resource],
+          [refId]: value > 0 ? value : 0
+        }
+      }))
+    }
   }
 }))
