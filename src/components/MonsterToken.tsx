@@ -10,7 +10,7 @@ export default function MonsterToken({
 
   return (
     <div
-      id={`unit_${id}`}
+      id={`${id}`}
       style={{
         height: display.height ?? 200,
         width: display.width ?? 200,
@@ -21,7 +21,7 @@ export default function MonsterToken({
       }}
     >
       <img
-        id={`unit_${id}`}
+        id={`${id}`}
         src={`monsters/${display.src}`}
         alt={display.src}
         style={{

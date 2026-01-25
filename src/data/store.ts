@@ -24,7 +24,7 @@ export const useECS = create<ECS_Store>((set, get) => ({
     const u = units[unitId]
     if (!u) throw Error(`Unit with id "${unitId}" could not be found`);
 
-    const id = uuidv7()
+    const id = `unit_${uuidv7()}`
 
     set(s => {
       // Add new unit to "units" (entities)
