@@ -3,7 +3,7 @@ export type UnitData = {
   resources: UnitResources;
   attributes: UnitAttributes;
   types: UnitTypes;
-  art: string;
+  display: UnitDisplay;
 }
 
 export type UnitResources = {
@@ -22,6 +22,13 @@ export type UnitTypes = {
   class?: ClassName
 }
 
+export type UnitDisplay = {
+  src: string;
+  bg?: string;
+  height?: number;
+  width?: number;
+}
+
 export type RaceName = "Human" | "Goblin" | "Undead" | "Elemental";
 
 export type ClassName = "Warrior" | "Rogue" | "Wizard" | "Cleric";
@@ -37,7 +44,9 @@ export const units: Record<string, UnitData> = {
       race: "Undead",
       class: "Warrior"
     },
-    art: "Skeleton.png",
+    display: {
+      src: "Skeleton.png"
+    },
   },
   "0002": {
     name: "Skeleton Magus",
@@ -49,7 +58,9 @@ export const units: Record<string, UnitData> = {
       race: "Undead",
       class: "Wizard"
     },
-    art: "SkeletonWizard.png",
+    display: {
+      src: "SkeletonWizard.png"
+    },
   },
   "0003": {
     name: "Goblin Thief",
@@ -61,7 +72,9 @@ export const units: Record<string, UnitData> = {
       race: "Goblin",
       class: "Rogue"
     },
-    art: "GoblinThief.png",
+    display: {
+      src: "GoblinThief.png"
+    },
   },
   "0004": {
     name: "Goblin Berserker",
@@ -73,6 +86,8 @@ export const units: Record<string, UnitData> = {
       race: "Goblin",
       class: "Warrior"
     },
-    art: "Goblin.png",
+    display: {
+      src: "Goblin.png"
+    },
   },
 }
