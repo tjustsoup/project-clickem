@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { UnitResources, units } from "./units";
 import { v7 as uuidv7 } from "uuid";
-import { ObjectEntriesTyped } from "./helper-functions";
+import { getRandomInt, ObjectEntriesTyped } from "./helper-functions";
 
 type ResourceMap<T extends object> = {
   [K in keyof T]: Record<string, T[K]>
@@ -10,14 +10,17 @@ type ResourceMap<T extends object> = {
 export type ResourceComponents = ResourceMap<UnitResources>
 
 export type ECS_Store = {
+  combatActive: boolean;
   units: Record<string, string>; // key = refId, value = unitId
   alive: Record<string, boolean>;
   spawnUnit: (unitId: string) => void;
+  startCombat: () => void;
   updateUnitResource: (refId: string, resource: keyof ResourceComponents, value: any) => void;
 }
   & ResourceComponents;
 
 export const useECS = create<ECS_Store>((set, get) => ({
+  combatActive: false,
   units: {},
   alive: {},
   spawnUnit(unitId) {
@@ -60,7 +63,15 @@ export const useECS = create<ECS_Store>((set, get) => ({
       set(s => {
         let res = { ...s }
         delete res?.[resource]?.[refId]
-        return { ...res, alive: { ...res.alive, [refId]: false } }
+        res = { ...res, alive: { ...res.alive, [refId]: false } }
+
+        // Handle "combat-over" event
+        const aliveCount = Object.values(res.alive).filter(v => v === true).length
+        if (aliveCount === 0) {
+          res.combatActive = false;
+        }
+
+        return res
       })
     } else {
       // Update resource
@@ -71,5 +82,16 @@ export const useECS = create<ECS_Store>((set, get) => ({
         }
       }))
     }
+  },
+
+  startCombat() {
+    const state = get()
+    if (state.combatActive) throw Error("Cannot start combat - Combat is already active");
+
+    const u = Object.keys(units)
+    const newUnit = u[getRandomInt(u.length)]
+
+    this.spawnUnit(newUnit)
+    set({ combatActive: true })
   }
 }))
