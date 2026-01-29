@@ -16,13 +16,13 @@ export function Hotbar({
 }
 
 export function HotbarButton({
-  name, fn
+  name, fn, disabled
 }: ActivatedAbility) {
 
   return (
     <div
-      className="w-[90px] h-[90px] border-2 border-slate-300 bg-slate-600"
-      onClick={() => fn()}
+      className={`size-[90px] border-2 border-slate-300 bg-slate-600 ${disabled && "border-slate-500 bg-slate-800"}`}
+      onClick={() => !disabled && fn()}
     >
       {name}
     </div>

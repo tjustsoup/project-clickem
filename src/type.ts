@@ -11,4 +11,5 @@ export type SceneProps = {
 export type ActivatedAbility = {
   name: string;
   fn: () => void;
+  disabled?: boolean;
 }
