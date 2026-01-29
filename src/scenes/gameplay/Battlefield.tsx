@@ -1,5 +1,5 @@
 import { MouseEvent, useMemo } from "react";
-import { Hotbar } from "../../components/ui";
+import { Hotbar, ResultsScreen } from "../../components/ui";
 import { useECS } from "../../data/store";
 import { ActivatedAbility, SceneProps } from "../../type";
 import MonsterToken from "../../components/MonsterToken";
@@ -28,7 +28,8 @@ export default function Battlefield(props: SceneProps) {
   const abilities: ActivatedAbility[] = [
     {
       name: "Spawn Unit",
-      fn: () => store.spawnUnit("0004")
+      fn: () => store.startCombat(),
+      disabled: store.combatActive
     }
   ]
 
@@ -39,7 +40,7 @@ export default function Battlefield(props: SceneProps) {
         onClick={handleClick}
         className="flex-1 border-2 border-stone-300 rounded-lg m-1 overflow-hidden h-full flex flex-row justify-center items-center gap-4"
       >
-        {activeUnits}
+        {store.combatActive ? activeUnits : <ResultsScreen />}
       </div>
 
       <Hotbar buttons={abilities} />
