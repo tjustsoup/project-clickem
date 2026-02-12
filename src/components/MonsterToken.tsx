@@ -1,5 +1,5 @@
 import { type ECS_Store } from "../data/store";
-import { units } from "../data/units";
+import { units } from "../data/assets";
 
 export default function MonsterToken({
   store, id, index

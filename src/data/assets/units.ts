@@ -1,4 +1,4 @@
-import { UnitData } from "./types";
+import { UnitData } from "../types";
 
 export const units: Record<string, UnitData> = {
   "0001": {

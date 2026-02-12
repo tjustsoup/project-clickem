@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { units } from "./units";
+import { units } from "./assets";
 import { UnitResources } from "./types";
 import { v7 as uuidv7 } from "uuid";
 import { getRandomInt, ObjectEntriesTyped } from "./helper-functions";
