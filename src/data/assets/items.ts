@@ -1,43 +1,4 @@
-/* Items */
-export type ItemEffects = Record<string, Function>;
-
-export type ItemType = "Equipment" | "Consumable" | "Reagent";
-
-export type ItemRarity = "Common" | "Rare" | "Epic";
-
-export type Item = {
-  id: string;
-  name: string;
-  type: ItemType;
-  rarity: ItemRarity;
-  description?: string;
-  icon?: any;
-  stackCount?: number;
-  effects?: ItemEffects;
-}
-
-/* Equipment */
-export type EquipmentType = "Weapon" | "Head" | "Chest" | "Legs" | "Hands" | "Trinket"
-
-export type ItemEquipment = Item & {
-  type: "Equipment";
-  slot: EquipmentType;
-  passives: null | Record<string, number>; // e.g. { str: 1, agi: -1 }
-  stackCount?: never; // forbid stackCount on equipment (recommended)
-}
-
-/* Equipment - Weapons */
-/**
- * @property *damage* - A range between minimum and maximum
- * @property *speed* - The time in ms allowed between attacks (lower === faster)
- * @property *handed* - How many weapon slots this takes up (1-handed vs 2-handed)
- */
-export type ItemEquipmentWeapon = ItemEquipment & {
-  slot: "Weapon";
-  damage: [number, number];
-  speed: number;
-  handed: 1 | 2;
-}
+import { ItemEquipmentWeapon, ItemRarity } from "../types";
 
 function weapon(input:
   Omit<ItemEquipmentWeapon, "type" | "slot" | "stackCount" | "passives"> & {

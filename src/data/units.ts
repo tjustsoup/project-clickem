@@ -1,37 +1,4 @@
-export type UnitData = {
-  name: string;
-  resources: UnitResources;
-  attributes: UnitAttributes;
-  types: UnitTypes;
-  display: UnitDisplay;
-}
-
-export type UnitResources = {
-  health?: number;
-  mana?: number;
-}
-
-export type UnitAttributes = {
-  strength?: number;
-  intellect?: number;
-  dexterity?: number;
-}
-
-export type UnitTypes = {
-  race?: RaceName;
-  class?: ClassName
-}
-
-export type UnitDisplay = {
-  src: string;
-  bg?: string;
-  height?: number;
-  width?: number;
-}
-
-export type RaceName = "Human" | "Goblin" | "Undead" | "Elemental";
-
-export type ClassName = "Warrior" | "Rogue" | "Wizard" | "Cleric";
+import { UnitData } from "./types";
 
 export const units: Record<string, UnitData> = {
   "0001": {
