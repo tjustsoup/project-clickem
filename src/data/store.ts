@@ -68,6 +68,7 @@ export const useECS = create<ECS_Store>((set, get) => ({
         // Handle "combat-over" event
         const aliveCount = Object.values(res.alive).filter(v => v === true).length
         if (aliveCount === 0) {
+          res.units = {};
           res.combatActive = false;
         }
 
