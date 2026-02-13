@@ -12,11 +12,10 @@ export function isRecord(value: unknown): value is AnyRecord {
 /**
  * Applies a deep patch to `base` and returns a new object.
  * Recursively merges plain objects, replaces other values, and ignores keys not present on `base`.
- * Does not mutate `base`.
  * 
  * @typeParam T - The base object type to patch (must be record-like).
- * @param base - The original object to apply the patch to.
- * @param patch - A partial (typically deep-partial) object containing updates.
+ * @param base - The original object to be patched.
+ * @param patch - A partial object containing updates.
  * @returns A new object with the patch applied.
  */
 export function applyDeepPatch<T extends AnyRecord>(
