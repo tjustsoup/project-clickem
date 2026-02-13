@@ -1,4 +1,4 @@
-import { ActivatedAbility } from "../../type"
+import { ActivatedAbility } from "../../types"
 
 export function Hotbar({
   buttons = []
@@ -21,7 +21,7 @@ export function HotbarButton({
 
   return (
     <div
-      className={`size-[90px] border-2 border-slate-300 bg-slate-600 ${disabled && "border-slate-500 bg-slate-800 flex items-center text-center p-1"}`}
+      className={`size-[90px] border-2 border-slate-300 bg-slate-600 flex justify-center items-center text-center p-1 ${disabled && "border-slate-500 bg-slate-800"}`}
       onClick={() => !disabled && fn()}
     >
       {name}
