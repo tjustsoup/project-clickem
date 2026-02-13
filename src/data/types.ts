@@ -31,6 +31,11 @@ export type UnitDisplay = {
   width?: number;
 }
 
+export type UnitAura = {
+  effect: (...args: any[]) => any;
+  duration: number;
+}
+
 export type RaceName = "Human" | "Goblin" | "Undead" | "Elemental";
 
 export type ClassName = "Warrior" | "Rogue" | "Wizard" | "Cleric";
@@ -44,7 +49,6 @@ export type ItemType = "Equipment" | "Consumable" | "Reagent";
 export type ItemRarity = "Common" | "Rare" | "Epic";
 
 export type Item = {
-  id: string;
   name: string;
   type: ItemType;
   rarity: ItemRarity;
