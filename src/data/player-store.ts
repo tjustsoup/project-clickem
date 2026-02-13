@@ -1,17 +1,22 @@
 import { create } from "zustand"
-import { EquipmentSlots, UnitAttributes, UnitResources } from "./types";
+import { EquipmentSlots, UnitAttributes, UnitAura, UnitResources } from "./types";
 
-export type Player_Store = {
+export type PlayerTemplate = {
   name: string | null;
+  className: string | null;
   attributes: UnitAttributes;
   resources: UnitResources;
   equipment: EquipmentSlots;
-  auras: Array<(...args: any[]) => any>;
+}
+
+export type Player_Store = PlayerTemplate & {
+  auras: Array<UnitAura>;
   startCharacter: (template: Partial<Player_Store>) => void;
 }
 
 export const usePlayer = create<Player_Store>((set, get) => ({
   name: null,
+  className: null,
   attributes: {
     strength: 0,
     intellect: 0,
@@ -35,5 +40,6 @@ export const usePlayer = create<Player_Store>((set, get) => ({
     }
   },
   auras: [],
-  startCharacter: (template) => set(template)
+  startCharacter: (template) => set(template),
+
 }))
