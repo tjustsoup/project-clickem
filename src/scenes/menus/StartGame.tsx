@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SceneProps } from "../../type";
+import { SceneProps } from "../../types";
 import { ClickButton } from "../../components/ui";
 import { classes } from "../../data/assets";
 import { usePlayer } from "../../data/player-store";

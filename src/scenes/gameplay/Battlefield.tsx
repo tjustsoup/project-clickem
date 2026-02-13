@@ -1,9 +1,9 @@
 import { MouseEvent, useMemo } from "react";
-import { Hotbar, ResultsScreen } from "../../components/ui";
+import { ActivatedAbility, SceneProps } from "../../types";
 import { useECS } from "../../data/store";
-import { ActivatedAbility, SceneProps } from "../../type";
-import MonsterToken from "../../components/MonsterToken";
 import { attack } from "../../data/actions";
+import { Hotbar, ResultsScreen } from "../../components/ui";
+import MonsterToken from "../../components/MonsterToken";
 
 export default function Battlefield(props: SceneProps) {
   /* State */

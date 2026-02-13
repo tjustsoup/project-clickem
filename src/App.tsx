@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SceneName } from "./type";
+import { SceneName } from "./types";
 import { useSceneMemo } from "./scenes";
 
 export default function App() {

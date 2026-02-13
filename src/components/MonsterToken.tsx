@@ -15,6 +15,7 @@ export default function MonsterToken({
   return (
     <div
       id={`${id}`}
+      key={index}
       style={{
         height: display.height ?? 200,
         width: display.width ?? 200,

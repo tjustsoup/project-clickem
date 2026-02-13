@@ -1,4 +1,4 @@
-import { type SceneName } from "../type";
+import { type SceneName } from "../types";
 import { useSceneMemo } from "./useSceneMemo";
 import * as Menus from "./menus";
 

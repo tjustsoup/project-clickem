@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { SceneName } from "../type";
+import { SceneName } from "../types";
 import * as Menus from "./menus";
 import * as Gameplay from "./gameplay";
 

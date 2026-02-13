@@ -14,7 +14,7 @@ export type Player_Store = PlayerTemplate & {
   startCharacter: (template: Partial<Player_Store>) => void;
 }
 
-export const usePlayer = create<Player_Store>((set, get) => ({
+export const usePlayer = create<Player_Store>((set) => ({
   name: null,
   className: null,
   attributes: {

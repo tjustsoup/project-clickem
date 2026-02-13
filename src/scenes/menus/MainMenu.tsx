@@ -1,5 +1,5 @@
 import { ClickButton } from "../../components/ui";
-import { SceneProps } from "../../type";
+import { SceneProps } from "../../types";
 
 export default function MainMenu({
   setScene
