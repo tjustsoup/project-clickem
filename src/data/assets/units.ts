@@ -1,7 +1,7 @@
 import { UnitData } from "../types";
 
 export const units: Record<string, UnitData> = {
-  "0001": {
+  "U0001": {
     name: "Skeleton Soldier",
     resources: {
       health: 20,
@@ -15,7 +15,7 @@ export const units: Record<string, UnitData> = {
       src: "Skeleton.png"
     },
   },
-  "0002": {
+  "U0002": {
     name: "Skeleton Magus",
     resources: {
       health: 20,
@@ -29,7 +29,7 @@ export const units: Record<string, UnitData> = {
       src: "SkeletonWizard.png"
     },
   },
-  "0003": {
+  "U0003": {
     name: "Goblin Thief",
     resources: {
       health: 30
@@ -43,7 +43,7 @@ export const units: Record<string, UnitData> = {
       src: "GoblinThief.png"
     },
   },
-  "0004": {
+  "U0004": {
     name: "Goblin Berserker",
     resources: {
       health: 30
@@ -57,4 +57,10 @@ export const units: Record<string, UnitData> = {
       src: "Goblin.png"
     },
   },
+}
+
+export function getUnit(id: string): UnitData | null {
+  return (id in units)
+    ? units[id]
+    : null
 }

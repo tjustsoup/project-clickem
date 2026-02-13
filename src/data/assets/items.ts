@@ -20,9 +20,8 @@ export const ItemRarityColors: Record<ItemRarity, string> = {
   "Epic": "#146acc",
 }
 
-export const weapons: ItemEquipmentWeapon[] = [
-  weapon({
-    id: "W-0001",
+export const weapons: Record<string, ItemEquipmentWeapon> = {
+  "W0001": weapon({
     name: "Rusty Sword",
     rarity: "Common",
     damage: [1, 3],
@@ -30,22 +29,24 @@ export const weapons: ItemEquipmentWeapon[] = [
     handed: 2,
     passives: { str: 1 },
   }),
-
-  weapon({
-    id: "W-0002",
+  "W0002": weapon({
     name: "Oak Staff",
     rarity: "Rare",
     damage: [2, 5],
     speed: 2500,
     handed: 2,
   }),
-
-  weapon({
-    id: "W-0003",
+  "W0003": weapon({
     name: "Bronze Dagger",
     rarity: "Common",
     damage: [0, 1],
     speed: 1000,
     handed: 1,
   }),
-]
+}
+
+export function getWeapon(id: string): ItemEquipmentWeapon | null {
+  return (id in weapons)
+    ? weapons[id]
+    : null
+}
