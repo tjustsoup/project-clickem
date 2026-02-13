@@ -30,6 +30,10 @@ export default function Battlefield(props: SceneProps) {
       name: "Spawn Unit",
       fn: () => store.startCombat(),
       disabled: store.combatActive
+    },
+    {
+      name: "Go Back",
+      fn: () => props.setScene("Main Menu")
     }
   ]
 
