@@ -1,3 +1,3 @@
-import { applyDeepPatch } from "./applyDeepPatch";
+import { applyDeepPatch, type DeepPartial } from "./applyDeepPatch";
 
-export { applyDeepPatch }
+export { applyDeepPatch, DeepPartial }

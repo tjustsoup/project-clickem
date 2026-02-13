@@ -1,7 +1,7 @@
 /* applyDeepPatch.ts */
 type AnyRecord = Record<string, unknown>;
 
-type DeepPartial<T> = {
+export type DeepPartial<T> = {
   [K in keyof T]?: T[K] extends AnyRecord ? DeepPartial<T[K]> : T[K];
 };
 
