@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { SceneName } from "./types";
 import { useSceneMemo } from "./scenes";
+import { CursorLayer } from "./utils";
 
 export default function App() {
   /* Scene Handling */
@@ -8,10 +9,14 @@ export default function App() {
   const Scene = useSceneMemo(scene)
 
   return (
-    <div className="h-screen w-screen flex justify-center align items-center">
-      <div className="w-[800px] h-[600px] viewport">
-        <Scene setScene={setScene} />
+    <>
+      <CursorLayer />
+
+      <div className="h-screen w-screen flex justify-center items-center">
+        <div className="w-[800px] h-[600px] viewport">
+          <Scene setScene={setScene} />
+        </div>
       </div>
-    </div>
+    </>
   );
 }

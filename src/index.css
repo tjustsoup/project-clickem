@@ -63,8 +63,9 @@
   -webkit-text-size-adjust: 100%;
 }
 
-body {
-  cursor: url("/cursors/Basic_Cursor.png"), auto;
+* {
+  cursor: none !important;
+  /* cursor: url("/cursors/Basic_Cursor.png"), auto; */
 }
 
 .viewport {

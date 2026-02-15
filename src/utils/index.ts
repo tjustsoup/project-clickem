@@ -1,3 +1,4 @@
 import { applyDeepPatch, type DeepPartial } from "./applyDeepPatch";
+import { CursorLayer } from "./CursorLayer";
 
-export { applyDeepPatch, DeepPartial }
+export { applyDeepPatch, CursorLayer, DeepPartial }
