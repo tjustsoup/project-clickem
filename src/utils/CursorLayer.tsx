@@ -1,16 +1,21 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { motion } from "motion/react";
 
 type CursorLayerProps = {
   size?: number;
   strokeWidth?: number;
-  hideSystemCursor?: boolean;
 };
 
 export function CursorLayer({
   size = 24,
   strokeWidth = 2
 }: CursorLayerProps) {
+  /* ClickTrigger Test */
+  const [clicked, setClicked] = useState(false)
+
+  const onClick = () => !clicked && setClicked(true);
+
   /* Initialize Data-cursor-layer */
   const host = useMemo(() => {
     const node = document.createElement("div");
@@ -67,6 +72,7 @@ export function CursorLayer({
     window.addEventListener("blur", onBlur);
     window.addEventListener("pointerenter", onEnter as any, { passive: true });
     window.addEventListener("pointermove", onMove, { passive: true });
+    window.addEventListener("click", onClick, { passive: true })
 
     const rawSupported = "onpointerrawupdate" in window;
 
@@ -94,12 +100,13 @@ export function CursorLayer({
       window.removeEventListener("blur", onBlur);
       window.removeEventListener("pointerenter", onEnter as any);
       window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("click", onClick)
       window.removeEventListener(rawSupported ? "pointerrawupdate" : "pointermove", onMove as any);
     };
   }, [size]);
 
   const content = (
-    <div
+    <motion.div
       ref={cursorRef}
       aria-hidden="true"
       style={{
@@ -116,19 +123,52 @@ export function CursorLayer({
         transformStyle: "preserve-3d",
       }}
     >
-      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+      <motion.svg viewBox={`0 0 ${size} ${size}`}>
         <circle
-          cx={size / 2}
-          cy={size / 2}
-          r={size / 2 - strokeWidth}
+          cx="50%"
+          cy="50%"
+          r={size / 3 - strokeWidth}
           fill="rgba(255,255,255,0.33"
           stroke="rgba(255,255,255,0.9)"
           strokeWidth={strokeWidth}
           strokeLinecap="round"
           style={{ transformOrigin: "50% 50%" }}
         />
-      </svg>
-    </div>
+
+        {clicked && (
+          <motion.circle
+            cx="50%"
+            cy="50%"
+            r={size / 3 - strokeWidth}
+            fill="none"
+            stroke="#ff0088"
+            strokeWidth={strokeWidth}
+            strokeLinecap="round"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            onAnimationComplete={() => setClicked(false)}
+            transition={{ duration: 2, ease: "linear" }}
+            style={{ rotate: "-90deg" }}
+          />
+        )}
+
+        {!clicked && (
+          <motion.circle
+            cx="50%"
+            cy="50%"
+            r={size / 3 - strokeWidth}
+            fill="none"
+            stroke="#ff0088"
+            strokeWidth={strokeWidth}
+            strokeLinecap="round"
+            initial={{ opacity: 1, scale: 1 }}
+            animate={{ opacity: 0, scale: 1.3 }}
+            transition={{ duration: 0.15 }}
+          />
+        )}
+
+      </motion.svg>
+    </motion.div>
   );
 
   return createPortal(content, host);
