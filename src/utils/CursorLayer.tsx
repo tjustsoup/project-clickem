@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { motion } from "motion/react";
+import { motion, useAnimate, useMotionValue } from "motion/react";
 
 type CursorLayerProps = {
   size?: number;
@@ -12,9 +12,18 @@ export function CursorLayer({
   strokeWidth = 2
 }: CursorLayerProps) {
   /* ClickTrigger Test */
+  const [scale, setScale] = useState(1)
+
   const [clicked, setClicked] = useState(false)
 
-  const onClick = () => !clicked && setClicked(true);
+  const onMouseDown = () => {
+    setScale(0.95)
+  }
+  const onMouseUp = () => {
+    setScale(1)
+    !clicked && setClicked(true);
+  }
+
 
   /* Initialize Data-cursor-layer */
   const host = useMemo(() => {
@@ -72,7 +81,8 @@ export function CursorLayer({
     window.addEventListener("blur", onBlur);
     window.addEventListener("pointerenter", onEnter as any, { passive: true });
     window.addEventListener("pointermove", onMove, { passive: true });
-    window.addEventListener("click", onClick, { passive: true })
+    window.addEventListener("mousedown", onMouseDown);
+    window.addEventListener("mouseup", onMouseUp);
 
     const rawSupported = "onpointerrawupdate" in window;
 
@@ -100,7 +110,8 @@ export function CursorLayer({
       window.removeEventListener("blur", onBlur);
       window.removeEventListener("pointerenter", onEnter as any);
       window.removeEventListener("pointermove", onMove);
-      window.removeEventListener("click", onClick)
+      window.removeEventListener("mousedown", onMouseDown);
+      window.removeEventListener("mouseup", onMouseUp);
       window.removeEventListener(rawSupported ? "pointerrawupdate" : "pointermove", onMove as any);
     };
   }, [size]);
@@ -124,7 +135,7 @@ export function CursorLayer({
       }}
     >
       <motion.svg viewBox={`0 0 ${size} ${size}`}>
-        <circle
+        <motion.circle
           cx="50%"
           cy="50%"
           r={size / 3 - strokeWidth}
@@ -132,6 +143,16 @@ export function CursorLayer({
           stroke="rgba(255,255,255,0.9)"
           strokeWidth={strokeWidth}
           strokeLinecap="round"
+          animate={{ scale }}
+          style={{ transformOrigin: "50% 50%" }}
+          transition={{ duration: 0.08 }}
+        />
+
+        <circle
+          cx="50%"
+          cy="50%"
+          r={2}
+          fill="rgba(255,255,255,0.9)"
           style={{ transformOrigin: "50% 50%" }}
         />
 

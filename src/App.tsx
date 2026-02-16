@@ -10,7 +10,7 @@ export default function App() {
 
   return (
     <>
-      <CursorLayer size={64} strokeWidth={6} />
+      <CursorLayer size={64} strokeWidth={4} />
 
       <div className="h-screen w-screen flex justify-center items-center">
         <div className="w-[800px] h-[600px] viewport">
