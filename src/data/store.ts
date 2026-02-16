@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { units } from "./assets";
-import { UnitResources } from "./types";
+import { Cooldown, CooldownECS, UnitResources } from "./types";
 import { v7 as uuidv7 } from "uuid";
 import { getRandomInt, ObjectEntriesTyped } from "./helper-functions";
 
@@ -13,16 +13,19 @@ export type ResourceComponents = ResourceMap<UnitResources>
 export type ECS_Store = {
   combatActive: boolean;
   units: Record<string, string>; // key = refId, value = unitId
+  cooldowns: Record<string, CooldownECS>;
   alive: Record<string, boolean>;
   spawnUnit: (unitId: string) => void;
   startCombat: () => void;
   updateUnitResource: (refId: string, resource: keyof ResourceComponents, value: any) => void;
+  triggerCooldown: (refId: string, name: string, cooldown: Cooldown) => number;
 }
   & ResourceComponents;
 
 export const useECS = create<ECS_Store>((set, get) => ({
   combatActive: false,
   units: {},
+  cooldowns: {},
   alive: {},
   spawnUnit(unitId) {
     // Get the unit data from "units" given a unitId
@@ -95,5 +98,35 @@ export const useECS = create<ECS_Store>((set, get) => ({
 
     this.spawnUnit(newUnit)
     set({ combatActive: true })
+  },
+
+  triggerCooldown(refId, name, cooldown) {
+    // Handle Timeout
+    const timeout = setTimeout(
+      () => set(p => {
+        let cooldowns = { ...p.cooldowns }
+
+        delete cooldowns[refId][name]
+
+        return { cooldowns }
+      }),
+      cooldown.duration
+    )
+
+    // Set Cooldown state with timeout added
+    set(p => ({
+      cooldowns: {
+        ...p.cooldowns,
+        [refId]: {
+          ...p.cooldowns[refId],
+          [name]: {
+            ...cooldown,
+            timeout
+          }
+        }
+      }
+    }))
+
+    return timeout
   }
 }))

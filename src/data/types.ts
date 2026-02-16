@@ -95,3 +95,14 @@ export type EquipmentSlots = Record<StandardSlot, EquipmentSlotId> & {
   Weapon: { Left: WeaponSlotValue; Right: WeaponSlotValue };
   Trinket: { 1: EquipmentSlotId; 2: EquipmentSlotId };
 };
+
+/* ---- Mechanics/State ---- */
+
+export type Cooldown = {
+  duration: number;
+  effects?: Record<string, Function>;
+}
+
+export type CooldownState = Cooldown & { timeout: number };
+
+export type CooldownECS = Record<string, Cooldown>;
