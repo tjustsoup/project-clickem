@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { motion, useAnimate, useMotionValue } from "motion/react";
+import { motion } from "motion/react";
 
 type CursorLayerProps = {
   size?: number;
@@ -12,17 +12,30 @@ export function CursorLayer({
   strokeWidth = 2
 }: CursorLayerProps) {
   /* ClickTrigger Test */
+  const [clicked, setClicked] = useState(false)
   const [scale, setScale] = useState(1)
 
-  const [clicked, setClicked] = useState(false)
-
   const onMouseDown = () => {
-    setScale(0.95)
+    if (!clicked) {
+      setScale(0.95)
+    }
   }
   const onMouseUp = () => {
-    setScale(1)
-    !clicked && setClicked(true);
+    if (!clicked) {
+      setClicked(true)
+      setScale(1)
+    }
   }
+
+  useEffect(() => {
+    window.addEventListener("mousedown", onMouseDown);
+    window.addEventListener("mouseup", onMouseUp);
+
+    return () => {
+      window.removeEventListener("mousedown", onMouseDown);
+      window.removeEventListener("mouseup", onMouseUp);
+    }
+  }, [clicked])
 
 
   /* Initialize Data-cursor-layer */
@@ -81,8 +94,6 @@ export function CursorLayer({
     window.addEventListener("blur", onBlur);
     window.addEventListener("pointerenter", onEnter as any, { passive: true });
     window.addEventListener("pointermove", onMove, { passive: true });
-    window.addEventListener("mousedown", onMouseDown);
-    window.addEventListener("mouseup", onMouseUp);
 
     const rawSupported = "onpointerrawupdate" in window;
 
@@ -110,11 +121,11 @@ export function CursorLayer({
       window.removeEventListener("blur", onBlur);
       window.removeEventListener("pointerenter", onEnter as any);
       window.removeEventListener("pointermove", onMove);
-      window.removeEventListener("mousedown", onMouseDown);
-      window.removeEventListener("mouseup", onMouseUp);
       window.removeEventListener(rawSupported ? "pointerrawupdate" : "pointermove", onMove as any);
     };
   }, [size]);
+
+
 
   const content = (
     <motion.div
@@ -139,11 +150,15 @@ export function CursorLayer({
           cx="50%"
           cy="50%"
           r={size / 3 - strokeWidth}
-          fill="rgba(255,255,255,0.33"
+          fill="rgba(255,255,255,0.33)"
           stroke="rgba(255,255,255,0.9)"
           strokeWidth={strokeWidth}
           strokeLinecap="round"
-          animate={{ scale }}
+          animate={{
+            scale,
+            fill: clicked ? "rgba(155,155,155,0.33)" : "rgba(255,255,255,0.33)",
+            stroke: clicked ? "rgba(155,155,155,0.9)" : "rgba(255,255,255,0.9)"
+          }}
           style={{ transformOrigin: "50% 50%" }}
           transition={{ duration: 0.08 }}
         />
