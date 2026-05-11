@@ -41,7 +41,9 @@ export default function Battlefield(props: SceneProps) {
   return (
     <div className="size-full flex flex-col">
       <div
-        onClick={handleClick}
+        onClick={(e) => console.log(e)}
+        onMouseDown={(e) => console.log(e)}
+        onMouseUp={console.log}
         className="flex-1 border-2 border-stone-300 rounded-lg m-1 overflow-hidden h-full flex flex-row justify-center items-center gap-4"
       >
         {store.combatActive ? activeUnits : <ResultsScreen />}

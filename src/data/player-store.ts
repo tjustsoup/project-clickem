@@ -1,5 +1,6 @@
 import { create } from "zustand"
-import { EquipmentSlots, UnitAttributes, UnitAura, UnitResources } from "./types";
+import { EquipmentSlotRef, EquipmentSlots, UnitAttributes, UnitAura, UnitResources } from "./types";
+import { getWeapon } from "./assets";
 
 export type PlayerTemplate = {
   name: string | null;
@@ -9,12 +10,15 @@ export type PlayerTemplate = {
   equipment: EquipmentSlots;
 }
 
+export type ActionNames = "mousedown.left" | "mouseup.left" | "mousedown.right" | "mouseup.right";
+
 export type Player_Store = PlayerTemplate & {
   auras: Array<UnitAura>;
   startCharacter: (template: Partial<Player_Store>) => void;
+  equip: (item: string, slot: EquipmentSlotRef) => void;
 }
 
-export const usePlayer = create<Player_Store>((set) => ({
+export const usePlayer = create<Player_Store>((set, get) => ({
   name: null,
   className: null,
   attributes: {
@@ -41,5 +45,7 @@ export const usePlayer = create<Player_Store>((set) => ({
   },
   auras: [],
   startCharacter: (template) => set(template),
+  equip(item: any, slot: any) {
 
+  }
 }))

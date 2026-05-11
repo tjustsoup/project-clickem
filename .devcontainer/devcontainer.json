@@ -1,0 +1,43 @@
+{
+  "name": "project-clickem (tauri+vite+react)",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "remoteUser": "vscode",
+  "updateRemoteUserUID": true,
+
+  "forwardPorts": [1420, 1421],
+  "portsAttributes": {
+    "1420": { "label": "Vite" },
+    "1421": { "label": "Vite HMR" }
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode-remote.remote-containers",
+        "rust-lang.rust-analyzer",
+        "tauri-apps.tauri-vscode",
+        "bradlc.vscode-tailwindcss",
+        "dbaeumer.vscode-eslint"
+      ]
+    }
+  },
+
+  "containerEnv": {
+    "__NV_DISABLE_EXPLICIT_SYNC": "1"
+  },
+
+  "runArgs": [
+    "--network=host",
+    "--userns=keep-id",
+    "--security-opt=label=disable",
+
+    "-e", "WAYLAND_DISPLAY=${localEnv:WAYLAND_DISPLAY}",
+    "-e", "XDG_RUNTIME_DIR=/run/user/${localEnv:UID}",
+    "-v", "/run/user/${localEnv:UID}/${localEnv:WAYLAND_DISPLAY}:/run/user/${localEnv:UID}/${localEnv:WAYLAND_DISPLAY}"
+  ],
+
+  "postCreateCommand": "corepack enable && corepack prepare pnpm@latest --activate && pnpm install && (cd src-tauri && cargo fetch)"
+}

@@ -45,8 +45,8 @@ export const weapons: Record<string, ItemEquipmentWeapon> = {
   }),
 }
 
-export function getWeapon(id: string): ItemEquipmentWeapon | null {
-  return (id in weapons)
+export function getWeapon(id: string | boolean | null): ItemEquipmentWeapon | null {
+  return (typeof id === "string" && id in weapons)
     ? weapons[id]
     : null
 }

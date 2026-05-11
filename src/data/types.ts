@@ -81,7 +81,29 @@ export type ItemEquipmentWeapon = ItemEquipment & {
   damage: [number, number];
   speed: number;
   handed: 1 | 2;
+  moveset: Array<MoveSet>
 }
+
+/* ---- Weapons - Move Sets ---- */
+
+export type MoveSetHoldReleaseType = "Aim" | "Cast" | "Channel" | "Charge"
+
+export type HoldRelease = {
+  type: MoveSetHoldReleaseType;
+  duration: number;
+  steps?: number;
+}
+
+export type MoveSetClickType = "Click" | "DoubleClick" | "DualClick"
+
+export type Click = { type: MoveSetClickType }
+
+export type MoveSetBase = {
+  name: string;
+  charges?: number;
+}
+
+export type MoveSet = MoveSetBase & (Click | HoldRelease)
 
 /* ---- Player Equipment ---- */
 
@@ -95,6 +117,11 @@ export type EquipmentSlots = Record<StandardSlot, EquipmentSlotId> & {
   Weapon: { Left: WeaponSlotValue; Right: WeaponSlotValue };
   Trinket: { 1: EquipmentSlotId; 2: EquipmentSlotId };
 };
+
+export type EquipmentSlotRef =
+  | { slot: StandardSlot }
+  | { slot: "Weapon", subslot: "Left" | "Right" }
+  | { slot: "Trinket", subslot: 1 | 2 }
 
 /* ---- Mechanics/State ---- */
 
